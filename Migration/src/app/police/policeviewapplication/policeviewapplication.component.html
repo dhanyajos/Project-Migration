@@ -1,0 +1,55 @@
+<div class="container mt-3" style="text-align:center;">
+  <h2>Application Details</h2>
+  <form>
+    <table style="width: 500px;height: 40px;margin-top:30px;">
+      <tr>
+        <td>Search By:</td>
+        <td>
+          <select #teams class="form-control" (change)="onSelectStatus(teams.value)">
+            <option>--Select--</option>
+            <option>Application Send to Police for verification</option>
+            <option>Application Verified</option>
+            <option>Application not Verified </option>
+
+          </select>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <ng-container *ngIf="this.Dataarray.length > 0; then loggedIn; else loggedOut">
+  </ng-container>
+  <ng-template #loggedIn>
+    <table class="table" border="1" style="margin-top: 50px;">
+      <thead>
+        <th>SL Number </th>
+        <th>First Name </th>
+        <th>Last Name </th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Remarks</th>
+        <th>Date of Verification</th>
+        <th>View more</th>
+        <th></th>
+       
+      </thead>
+      <tr *ngFor="let item of Dataarray let i=index">
+
+        <td> {{i+1}} </td>
+        <td> {{item.firstName}}</td>
+        <td> {{item.lastName}} </td>
+        <td> {{item.phoneno}} </td>
+        <td> {{item.status}} </td>
+        <td>{{item.remarksByPolice}}</td>
+        <td>{{item.dateofPoliceStatus}}</td>
+        <td><a [routerLink]="['/policehome/policeviewmore',item.applicationId]" target="_blank">View Application</a>
+        </td>
+        <td> <button [routerLink]="['/policehome/policeeditsts',item.applicationId]" target="_blank">Edit
+            Status</button></td>
+      </tr>
+    </table>
+  </ng-template>
+
+  <br /><br />
+  <ng-template #loggedOut>No Result Found!!</ng-template>
+
+</div>

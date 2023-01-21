@@ -1,0 +1,65 @@
+<div class="container mt-3">
+  <h2>Application Details</h2>
+  <form>
+    <table style="width: 500px;height: 40px;">
+      <tr>
+        <td>Search By:</td>
+
+        <td>
+          <select #teams class="form-control" (change)="onSelectStatus(teams.value)">
+            <option>--Select--</option>
+            <option>Application Received</option>
+            <option>Application Send to Police for verification</option>
+            <option>Application Approved</option>
+            <option>Application Pending due to insufficient data</option>
+            <option>Application Rejected </option>
+            <option>Application Verified</option>
+            <option>Application not Verified </option>
+
+          </select>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <table class="table table-bordered table-condensed" style="margin-top:40px;"
+    *ngIf="this.Dataarray.length > 0; else elseBlock">
+    <thead>
+      <th>SL Number </th>
+      <th>First Name </th>
+      <th>Last Name </th>
+      <th>Phone</th>
+      <th>District</th>
+      <th>Date of Application Submitted</th>
+      <th>Status</th>
+      <th>Remarks By Police</th>
+      <th>Date of Application Verified</th>
+      <th>Date of Application Approved</th>
+      <th>View more</th>
+     
+      <th></th>
+    </thead>
+    <tr *ngFor="let item of Dataarray let i=index">
+
+      <td> {{i+1}} </td>
+      <td> {{item.firstName}}</td>
+      <td> {{item.lastName}} </td>
+      <td> {{item.phoneno}} </td>
+      <td> {{item.district}} </td>
+      <td> {{item.dateofApplied}}</td>    
+      <td> {{item.status}}</td>
+      <td> {{item.remarksByPolice}} </td>
+      <td> {{item.dateofPoliceStatus}} </td>
+      <td> {{item.dateofAdminStatus}} </td>
+      
+      <!-- <td> <button (click)="onsubmit(item)" [ngClass]="{'green':item?.isToggle,'red':!item?.isToggle}">send</button></td>-->
+      <td><a [routerLink]="['/adminhome/viewmore',item.applicationId]" target="_blank">View Application</a></td>
+      <td> <button #btn (click)="SendData(item); btn.disabled = true;">Send Data</button></td>
+      <td> <button [routerLink]="['/adminhome/editsts',item.applicationId]">Edit Status</button></td>
+
+    </tr>
+  </table>
+  <br><br>
+  <ng-template #elseBlock>No Result Found!!</ng-template>
+
+</div>
